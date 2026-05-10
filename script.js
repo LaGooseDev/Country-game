@@ -32,6 +32,9 @@ function IsACountry(Text) {
 }
 
 function GuessedCountry(Name) {
+
+    let Alr = false;
+
     const Message = document.getElementById("Message");
 
     if (!(Name in Guessed)) {
@@ -42,12 +45,18 @@ function GuessedCountry(Name) {
     } else {
         Message.innerText = "Already guessed.";
         Message.style.color = "yellow";
+        Alr = true;
     }
 
     UpdateProgress();
+
+    return Alr
 }
 
 function Input(Text) {
+
+    let Result = "Fail"
+
     const Filtered = [...Text]
         .filter(Char => /[a-zA-Z]/.test(Char))
         .join("");
@@ -59,21 +68,33 @@ function Input(Text) {
     const Message = document.getElementById("Message");
 
     if (Country) {
-        GuessedCountry(Final);
+        const Alr = GuessedCountry(Final);
+        if (Alr == false) {
+            Result = "Correct";
+        };
     } else {
         Message.innerText = "Wrong.";
         Message.style.color = "red";
-    }
+    };
+
+    return Result
 }
+const InputBox = document.getElementById("Input");
 
 InputBox.addEventListener("input", function () {
-    Input(InputBox.value);
+    const InputBox = document.getElementById("Input");
+    const Result = Input(InputBox.value);
+    if (Result == "Correct") {
+        InputBox.value = "";
+    }
 });
 
 function WaitForValue() {
     const InputBox = document.getElementById("Input");
 
     Input(InputBox.value);
+
+    print('test print test print!!!!');
 
     InputBox.value = "";
 }
