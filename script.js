@@ -2,6 +2,10 @@ const All = {
     "uk": "unitedkingdom",
     "czechia": "czechrepublic",
     "car": "centralafricanrepublic",
+    "us": "unitedstates",
+    "afganistan": "afghanistan",
+    "kazakstan": "kazakhstan",
+    "kyrgikstan": "kyrgykstan",
 };
 
 let Countries = [];
@@ -33,7 +37,7 @@ function GuessedCountry(Name) {
     if (!(Name in Guessed)) {
         Guessed[Name] = true;
 
-        Message.innerText = `Correct! (${Object.keys(Guessed).length}/${Countries.length})`;
+        Message.innerText = `Correct!`;
         Message.style.color = "lime";
     } else {
         Message.innerText = "Already guessed.";
