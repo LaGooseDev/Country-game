@@ -66,6 +66,10 @@ function Input(Text) {
     }
 }
 
+InputBox.addEventListener("input", function () {
+    Input(InputBox.value);
+});
+
 function WaitForValue() {
     const InputBox = document.getElementById("Input");
 
