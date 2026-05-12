@@ -22,6 +22,9 @@ fetch("Countries.json")
 .then(Data => {
     Countries = Data;
 
+    console.log("Countries loaded:");
+    console.log(Countries);
+
     UpdateProgress();
 });
 function IsACountry(Text) {
@@ -52,15 +55,6 @@ function HighlightCountry(Name, Color) {
     
 };
 
-function MakeAllRed() {
-};
-
-for (const [i, v] of Countries.entries()) {
-    HighlightCountry(v, "#794C60")
-    console.log(v)
-}
-
-MakeAllRed();
 
 
 function GuessedCountry(Name) {
@@ -131,6 +125,10 @@ function WaitForValue() {
 }
 
 function UpdateProgress() {
-    document.getElementById("Progress").innerText =
-        `${Object.keys(Guessed).length} / ${Countries.length}`;
+    console.log("UpdateProgress running");
+    console.log(Countries);
+
+    for (const [i, v] of Countries.entries()) {
+        HighlightCountry(v, "#794C60");
+    }
 }
