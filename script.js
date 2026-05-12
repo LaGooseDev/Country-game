@@ -6,6 +6,7 @@ const All = {
     "afganistan": "afghanistan",
     "kazakstan": "kazakhstan",
     "kyrgikstan": "kyrgykstan",
+    "bosnia": "bosniaandherzegovina"
 };
 
 let Countries = [];
