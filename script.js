@@ -9,8 +9,14 @@ const All = {
     "bosnia": "bosniaandherzegovina"
 };
 
+const DefTimer = 15 * 60;
+
+let TimeLeft = DefTimer;
 let Countries = [];
 let Guessed = {};
+
+let GameRunning = true
+
 fetch("world.svg")
     .then(Response => Response.text())
     .then(Data => {
@@ -55,8 +61,6 @@ function HighlightCountry(Name, Color) {
 
     
 };
-
-
 
 function GuessedCountry(Name) {
 
@@ -110,6 +114,9 @@ function Input(Text) {
 const InputBox = document.getElementById("Input");
 
 InputBox.addEventListener("input", function () {
+    if (!GameRunning) {
+        return
+    }
     const InputBox = document.getElementById("Input");
     const Result = Input(InputBox.value);
     if (Result == "Correct") {
@@ -118,6 +125,9 @@ InputBox.addEventListener("input", function () {
 });
 
 function WaitForValue() {
+    if (!GameRunning) {
+        return
+    }
     const InputBox = document.getElementById("Input");
 
     Input(InputBox.value);
@@ -135,3 +145,81 @@ function UpdateProgress() {
     document.getElementById("Progress").innerText =
         `${Object.keys(Guessed).length} / ${Countries.length}`;
 }
+
+function ToggleElements(Names, to) {
+    let An = "hidden"
+    if (to == true) {
+        An = "visible"
+    }
+    for (const [i, v] of Names.entries()) {
+        document.getElementById(v).style.visibility = An;
+    }
+}
+ToggleElements([
+    "Restart",
+], false)
+
+function Restart() {
+    for (const [i, v] of Countries.entries()) {
+        HighlightCountry(v, "#ffffff");
+    }
+    Guessed = {}
+    ToggleElements([
+        "Input",
+        "GuessButton",
+        "Message"
+    ], true)
+    ToggleElements([
+        "Restart",
+    ], false)
+    GameRunning = true
+    TimeLeft = DefTimer
+    StartTimer()
+    UpdateProgress()
+}
+
+function EndGame() {
+    GameRunning = false
+    ToggleElements([
+        "Input",
+        "GuessButton",
+        "Message"
+    ], false)
+    ToggleElements([
+        "Restart",
+    ], true)
+}
+
+
+const TimerElement = document.getElementById("Timer");
+
+function StartTimer() {
+    function UpdateTimer() {
+    let Minutes = Math.floor(TimeLeft / 60);
+    let Seconds = TimeLeft % 60;
+
+    TimerElement.innerText = `${Minutes}:${Seconds.toString().padStart(2, "0")}`;
+
+    if (TimeLeft <= 0) {
+        clearInterval(TimerInterval);
+        TimerElement.innerText = "Time's up!";
+        EndGame();
+    }
+    else {
+        if (TimeLeft <= 10) {
+             TimerElement.style.color = "red";
+        }
+        else{
+            TimerElement.style.color = "white";
+        }
+    }
+
+    TimeLeft--;
+}
+
+const TimerInterval = setInterval(UpdateTimer, 1000);
+
+UpdateTimer();
+}
+
+StartTimer()

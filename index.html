@@ -8,18 +8,25 @@
 </head>
 <body>
 
+<div id="UIContainer"></div>
+
+    <div id="Timer">15:00</div>
+
     <h1>Guess All Countries</h1>
 
     <input id="Input" placeholder="Enter country">
-    <button onclick="WaitForValue()">Guess</button>
+    <button id="GuessButton" onclick="WaitForValue()">Guess</button>
 
     <p id="Message"></p>
+    <button id="Restart" onclick="Restart()">RESTART</button>
 
     <p id="Progress">0 / 0</p>
 
     <script src="script.js"></script>
 
     <div id="MapContainer"></div>
+
+</div>
 
 </body>
 </html>
