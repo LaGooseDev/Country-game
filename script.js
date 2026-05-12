@@ -24,7 +24,6 @@ fetch("Countries.json")
 
     UpdateProgress();
 });
-
 function IsACountry(Text) {
     let From = null;
 
@@ -35,18 +34,34 @@ function IsACountry(Text) {
     }
 
     return From;
-}
-function HighlightCountry(Name) {
+};
+function HighlightCountry(Name, Color) {
+
+    if (!Color) {
+        Color = "#4C7965"
+    }
+
     const Country = document.getElementById(Name);
 
     if (Country) {
-        Country.style.fill = "#27F598";
+        Country.style.fill = Color;
     }
     else {
      }
 
     
+};
+
+function MakeAllRed() {
+};
+
+for (const [i, v] of Countries.entries()) {
+    HighlightCountry(v, "#794C60")
+    console.log(v)
 }
+
+MakeAllRed();
+
 
 function GuessedCountry(Name) {
 
