@@ -6,6 +6,7 @@ const All = {
     "afganistan": "afghanistan",
     "kazakstan": "kazakhstan",
     "kyrgikstan": "kyrgykstan",
+    "bosnia": "bosniaandherzegovina"
 };
 
 let Countries = [];
@@ -68,7 +69,7 @@ function GuessedCountry(Name) {
 
         Message.innerText = `Correct!`;
         Message.style.color = "#27F598";
-        HighlightCountry(Name)
+        HighlightCountry(Name,"#4C7965")
     } else {
         Message.innerText = "Already guessed.";
         Message.style.color = "yellow";
@@ -129,6 +130,8 @@ function UpdateProgress() {
     console.log(Countries);
 
     for (const [i, v] of Countries.entries()) {
-        HighlightCountry(v, "#794C60");
+//        HighlightCountry(v, "#D4CD13");
     }
+    document.getElementById("Progress").innerText =
+        `${Object.keys(Guessed).length} / ${Countries.length}`;
 }
